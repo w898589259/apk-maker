@@ -31,8 +31,6 @@ repo阿里云 = 'https://maven.aliyun.com/repository/public/
 
 repo腾讯云 = 'https://mirrors.cloud.tencent.com/repository/maven-public/
 '
-
-纯文本
 // 强行把这些地址注入到全局
 repositories {
     maven { url repo阿里云 }
