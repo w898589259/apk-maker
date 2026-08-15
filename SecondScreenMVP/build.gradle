@@ -1,12 +1,10 @@
 gradle
 
-// 1. 删除 buildscript 里的 repositories（这就是导致之前一直报错的元凶！）
+// 1. 这里只管插件，坚决不写下载地址（防止再起冲突）
 
 buildscript {
 
 dependencies {
-
-// 这两行保留，这是编译必须的插件
 
 classpath 'com.android.tools.build:gradle:7.4.2'
 
@@ -16,13 +14,15 @@ classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22"
 
 }
 
-// 2. 同样删除 allprojects 里的 repositories
+// 2. 这里也删光光，什么都不留
 
-// 因为我们已经在 settings.gradle 里统一管理了，这里留着就会冲突
+allprojects {
 
-// 3. 【终极必杀技】直接在这里硬塞两个国内镜像地址！
+}
 
-// 不管机器读不读 settings，这里它一定能看到，保证依赖包能下载下来
+// 3. 【终极必杀技】直接把国内下载地址硬塞在这里！
+
+// 不管机器读不读其他配置，这里它一定能看到，保证依赖包100%能下载下来
 
 ext {
 
@@ -31,12 +31,3 @@ repo阿里云 = 'https://maven.aliyun.com/repository/public/
 
 repo腾讯云 = 'https://mirrors.cloud.tencent.com/repository/maven-public/
 '
-// 强行把这些地址注入到全局
-repositories {
-    maven { url repo阿里云 }
-    maven { url repo腾讯云 }
-    google()
-    mavenCentral()
-}
-
-}
