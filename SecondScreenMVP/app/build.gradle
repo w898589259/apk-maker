@@ -1,40 +1,58 @@
+// app模块配置，管APK的基本信息
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
+    // 包名，APK的唯一标识，别改
     namespace 'com.example.secondscreen'
+    // 编译用的安卓SDK版本，33对应安卓13
     compileSdk 33
 
     defaultConfig {
+        // APK的包名，安装时靠这个识别
         applicationId "com.example.secondscreen"
+        // 最低支持安卓8.0，刚好支持画中画功能
         minSdk 26
+        // 目标适配安卓13
         targetSdk 33
+        // 版本号，每次更新+1
         versionCode 1
+        // 版本名称，给用户看的
         versionName "1.0"
     }
 
     buildTypes {
         release {
+            // 正式包不混淆代码，方便调试
             minifyEnabled false
         }
     }
+
+    // 编译用的Java版本，必须和Gradle要求一致
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    // Kotlin编译用的JVM版本，和Java版本对应
     kotlinOptions {
         jvmTarget = '11'
     }
+    // 开启视图绑定，写界面时不用反复找控件，减少出错
     buildFeatures {
         viewBinding true
     }
 }
 
+// 依赖库，APK运行需要的第三方代码
 dependencies {
+    // Kotlin核心库
     implementation 'androidx.core:core-ktx:1.10.1'
+    // 安卓兼容库，适配旧版本系统
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    // Material设计组件，界面好看
     implementation 'com.google.android.material:material:1.9.0'
+    // 约束布局，界面排版用
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
