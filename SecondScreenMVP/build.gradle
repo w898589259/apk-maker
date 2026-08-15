@@ -1,24 +1,14 @@
-// Top-level build file
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// 仓库地址已统一在 settings.gradle 的 dependencyResolutionManagement / pluginManagement 中声明，
+// 此处不再重复声明 repositories，避免与 FAIL_ON_PROJECT_REPOS 冲突。
+
 buildscript {
-    repositories {
-        maven { url "https://mirrors.tencent.com/nexus/repository/maven-public/" }
-        google()
-        mavenCentral()
-    }
     dependencies {
         classpath "com.android.tools.build:gradle:7.4.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22"
     }
 }
 
-allprojects {
-    repositories {
-        maven { url "https://mirrors.tencent.com/nexus/repository/maven-public/" }
-        google()
-        mavenCentral()
-    }
-}
-
-tasks.register("clean", Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
