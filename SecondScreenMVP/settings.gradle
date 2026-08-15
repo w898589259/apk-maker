@@ -1,20 +1,81 @@
-pluginManagement {
-    repositories {
-        maven { url "https://mirrors.tencent.com/nexus/repository/maven-public/" }
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
+gradle
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        maven { url "https://mirrors.tencent.com/nexus/repository/maven-public/" }
-        google()
-        mavenCentral()
-    }
+
+// ✅ 加上这一行：严令禁止局部文件私自添加仓库
+
+repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
+repositories {
+
+// 这里保留我们刚才加的国内高速通道
+
+maven { url 'https://maven.aliyun.com/repository/public/
+' }
+
+maven { url 'https://mirrors.cloud.tencent.com/repository/maven-public/
+' }
+
+google()
+
+mavenCentral()
+
+}
+
 }
 
 rootProject.name = "SecondScreenMVP"
-include ':app'
+
+2. 修改 build.gradle （做减法）
+
+打开 build.gradle，把里面的内容全部删掉，复制粘贴下面这段代码（注意：我把之前可能引起冲突的代码都删掉了）：
+
+gradle
+
+plugins {
+
+id 'com.android.application'
+
+id 'org.jetbrains.kotlin.android'
+
+}
+
+android {
+
+namespace 'com.example.secondscreen'
+
+compileSdk 33defaultConfig {
+    applicationId "com.example.secondscreen"
+    minSdk 26
+    targetSdk 33
+    versionCode 1
+    versionName "1.0"
+}
+
+buildTypes {
+    release {
+        minifyEnabled false
+    }
+}
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_11
+    targetCompatibility JavaVersion.VERSION_11
+}
+kotlinOptions {
+    jvmTarget = '11'
+}
+buildFeatures {
+    viewBinding true
+}}
+
+dependencies {
+
+implementation 'androidx.core:core-ktx:1.10.1'
+
+implementation 'androidx.appcompat:appcompat:1.6.1'
+
+implementation 'com.google.android.material:material:1.9.0'
+
+implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+}
